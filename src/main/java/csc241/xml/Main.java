@@ -15,7 +15,7 @@ public class Main {
         SAXParserFactory spf = SAXParserFactory.newInstance();
 
         try {
-            InputStream input = new FileInputStream("/Users/danielschlegel/Library/CloudStorage/Dropbox/Teaching/CSC241/24S/Class Code/CS2/src/main/resources/graphml1.xml");
+            InputStream input = Main.class.getClassLoader().getResourceAsStream("graphml1.xml");
             SAXParser saxParser = spf.newSAXParser();
             GraphMLHandler gmh = new GraphMLHandler();
             saxParser.parse(input,gmh);
