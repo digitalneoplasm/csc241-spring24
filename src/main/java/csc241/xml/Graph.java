@@ -18,11 +18,13 @@ public class Graph {
 
     public String toString() {
         String ret = ("Graph " + id + " (" + edgeDefault + ")");
+        ret += "\nNodes:";
         for (Node n : nodes){
-            ret += "\nNode: " + n;
+            ret += "\n" + n;
         }
+        ret += "\nEdges:";
         for (Edge e : edges){
-            ret += "\nEdge: " + e;
+            ret += "\n" + e;
         }
         return ret;
     }
