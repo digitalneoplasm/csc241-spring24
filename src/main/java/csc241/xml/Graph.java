@@ -16,6 +16,23 @@ public class Graph {
         edges = new ArrayList<>();
     }
 
+    public void addNode(Node n){
+        nodes.add(n);
+    }
+
+    public void addEdge(Edge e){
+        edges.add(e);
+    }
+
+    public Node getNodeByID(String id){
+        for (Node n : nodes){
+            if (n.getID().equals(id)){
+                return n;
+            }
+        }
+        return null;
+    }
+
     public String toString() {
         String ret = ("Graph " + id + " (" + edgeDefault + ")");
         ret += "\nNodes:";

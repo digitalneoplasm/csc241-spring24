@@ -19,6 +19,9 @@ public class Main {
             SAXParser saxParser = spf.newSAXParser();
             GraphMLHandler gmh = new GraphMLHandler();
             saxParser.parse(input,gmh);
+
+            System.out.println(gmh.getGraph());
+
         } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new RuntimeException(e);
         }
