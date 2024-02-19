@@ -29,6 +29,35 @@ public class ExpandableArray {
      * - int size() - number of elements in the ExpandableArray.
      */
 
+    private String[] arr;
+    private static int DEFAULT_LENGTH = 10;
+    private int nrOfElements = 0;
+
+    public ExpandableArray() {
+        arr = new String[DEFAULT_LENGTH];
+    }
+
+    public boolean add(String s) {
+        // Where are we putting s?
+        // - Add at nrOfElements.
+        // - Increment nrOfElements.
+
+        // But! If nrOfElements == arr.length
+        // - Make a new array (newArr) size: arr.length + arr.length >> 1
+        // - Copy over the elements
+        // - arr = newArr
+        // - Do our add.
+        if (nrOfElements == arr.length) {
+            String[] newArr = new String[arr.length + arr.length >> 1];
+            System.arraycopy(arr, 0, newArr, 0, arr.length);
+            arr = newArr;
+        }
+        arr[nrOfElements] = s;
+        nrOfElements++;
+
+        return true;
+    }
+
 
 
 }
