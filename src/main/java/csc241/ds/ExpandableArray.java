@@ -48,7 +48,7 @@ public class ExpandableArray {
         // - arr = newArr
         // - Do our add.
         if (nrOfElements == arr.length) {
-            String[] newArr = new String[arr.length + arr.length >> 1];
+            String[] newArr = new String[arr.length + (arr.length >> 1)];
             System.arraycopy(arr, 0, newArr, 0, arr.length);
             arr = newArr;
         }
@@ -56,6 +56,35 @@ public class ExpandableArray {
         nrOfElements++;
 
         return true;
+    }
+
+    public String get(int i) {
+        // Error cases:
+        // 1) i is too big. i > nrOfElements - 1
+        if (i > nrOfElements - 1){
+            throw new IndexOutOfBoundsException(i + " is greater than " + (nrOfElements));
+        }
+        // 2) i is too small. i < 0
+        if (i < 0) {
+            throw new IndexOutOfBoundsException("i < 0");
+        }
+        return arr[i];
+    }
+
+    public int size() {
+        return nrOfElements;
+    }
+
+    public String toString() {
+        if (nrOfElements == 0){
+            return "[]";
+        }
+        String ret = "[";
+        for (int i = 0; i < nrOfElements - 1; i++){
+            ret += arr[i] + ", ";
+        }
+        ret += arr[nrOfElements - 1] + "]";
+        return ret;
     }
 
 
