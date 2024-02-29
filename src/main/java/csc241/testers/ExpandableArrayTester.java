@@ -18,11 +18,14 @@ public class ExpandableArrayTester {
         System.out.println(ea);
 
         for (int i = 0; i < 20; i++){
-            ea.add("a");
+            ea.add(""+(char)('a'+i));
             System.out.println(ea + " size: " + ea.size());
         }
 
-        ea = new ExpandableArray();
-        ea.get(1);
+        ea.add(5, "b");
+        System.out.println(ea);
+
+//        ea = new ExpandableArray();
+//        ea.get(1);
     }
 }

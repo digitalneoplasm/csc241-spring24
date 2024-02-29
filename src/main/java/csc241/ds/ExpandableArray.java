@@ -47,15 +47,45 @@ public class ExpandableArray {
         // - Copy over the elements
         // - arr = newArr
         // - Do our add.
-        if (nrOfElements == arr.length) {
-            String[] newArr = new String[arr.length + (arr.length >> 1)];
-            System.arraycopy(arr, 0, newArr, 0, arr.length);
-            arr = newArr;
-        }
+        ensureCapacity();
         arr[nrOfElements] = s;
         nrOfElements++;
 
         return true;
+    }
+
+    /**
+     * Insert at an index.
+     * @param i the index to insert at
+     * @param s the String to insert
+     * @return returns true
+     */
+    public boolean add(int i, String s) {
+        if (i < 0) throw new IndexOutOfBoundsException(i + " < 0");
+        if (i > nrOfElements) throw new IndexOutOfBoundsException(i + " > " + nrOfElements);
+        ensureCapacity();
+        if (i < nrOfElements && i >= 0) { // We need to shift everything over.
+            for (int j = nrOfElements - 1; j >= i; j--) {
+                arr[j+1] = arr[j];
+            }
+        }
+        arr[i] = s;
+        nrOfElements++;
+
+        return true;
+    }
+
+    private void ensureCapacity() {
+        if (nrOfElements == arr.length) {
+            String[] newArr = new String[arr.length + (arr.length >> 1)];
+            System.arraycopy(arr, 0, newArr, 0, arr.length);
+            /*
+            for (int i = 0; i < arr.length; i++){
+                newArr[i] = arr[i];
+            }
+             */
+            arr = newArr;
+        }
     }
 
     public String get(int i) {
