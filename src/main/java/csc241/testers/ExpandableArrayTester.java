@@ -3,8 +3,9 @@ package csc241.testers;
 import csc241.ds.ExpandableArray;
 
 public class ExpandableArrayTester {
-    public static void main(String[] args) {
 
+
+    public static void main(String[] args) {
         // Normal case.
         ExpandableArray ea = new ExpandableArray();
         ea.add("a");
