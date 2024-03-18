@@ -26,6 +26,8 @@ public class ExpandableArrayTester {
         ea.add(5, "b");
         System.out.println(ea);
 
+        ea.add(-3,"s");
+
 //        ea = new ExpandableArray();
 //        ea.get(1);
     }
