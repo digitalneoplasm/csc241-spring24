@@ -64,6 +64,25 @@ public class SinglyLinkedList {
         return result.toString();
     }
 
+    private Node getNodeAtIndex(int i){
+        Node temp = head;
+        for (int j = 0; j < i; j++){
+            temp = temp.next; // Move to the next node.
+        }
+        return temp;
+    }
+
+    private void addAfter(Node previous, String data){
+//        Node oldNext = previous.next;
+//        Node newNode = new Node(data);
+//        newNode.next = oldNext;
+//        previous.next = newNode;
+        // previous -> newNode -> oldNext
+        Node newNode = new Node(data, previous.next);
+        previous.next = newNode;
+
+    }
+
     // 2 kinds of nested classes:
     // static classes - can only access static members of the outer class.
     //                - don't rely on any instance of the outer class.

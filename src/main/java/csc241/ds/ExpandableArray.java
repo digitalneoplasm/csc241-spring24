@@ -101,6 +101,12 @@ public class ExpandableArray {
         return arr[i];
     }
 
+    public void remove(int idx) {
+        for (int i = idx; i < nrOfElements - 1; i++) {
+            arr[i] = arr[i+1];
+        }
+    }
+
     public int size() {
         return nrOfElements;
     }
