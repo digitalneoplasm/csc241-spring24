@@ -102,9 +102,13 @@ public class ExpandableArray {
     }
 
     public void remove(int idx) {
+        if (idx < 0 || idx >= nrOfElements) {
+            throw new IndexOutOfBoundsException();
+        }
         for (int i = idx; i < nrOfElements - 1; i++) {
             arr[i] = arr[i+1];
         }
+        nrOfElements--;
     }
 
     public int size() {
