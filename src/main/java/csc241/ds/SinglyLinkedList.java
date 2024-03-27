@@ -23,7 +23,10 @@ package csc241.ds;
  * - int size() - number of elements in the list.
  */
 
-public class SinglyLinkedList<E> {
+import java.util.Collection;
+import java.util.Iterator;
+
+public class SinglyLinkedList<E> implements Iterable<E> {
     private Node<E> head;
     private int nrOfElements = 0;
 
@@ -42,7 +45,7 @@ public class SinglyLinkedList<E> {
         return true;
     }
 
-    public boolean add(int i, E data) {
+    public void add(int i, E data) {
         if (i < 0 || i > nrOfElements) {
             throw new IndexOutOfBoundsException();
         }
@@ -56,9 +59,9 @@ public class SinglyLinkedList<E> {
             Node<E> before = getNodeAtIndex(i-1);
             addAfter(before, data);
         }
-
-        return true;
     }
+
+
 
     public int size() {
         return nrOfElements;
@@ -82,12 +85,46 @@ public class SinglyLinkedList<E> {
         return result.toString();
     }
 
+    public boolean contains(Object o) {
+        Node<E> temp = head;
+        while (temp != null) {
+            if (temp.equals(o)) return true;
+            temp = temp.next;
+        }
+        return false;
+    }
+
+    public boolean containsAll(Collection<?> c){
+        for (Object o : c) {
+            if (!contains(o)) return false;
+        }
+        return true;
+    }
+
     private Node<E> getNodeAtIndex(int i){
         Node<E> temp = head;
         for (int j = 0; j < i; j++){
             temp = temp.next; // Move to the next node.
         }
         return temp;
+    }
+
+    public E get(int i) {
+        return getNodeAtIndex(i).data;
+    }
+
+    private void removeAfter(Node<E> n) {
+        if (n.next == null) {
+            throw new RuntimeException("No next element to remove.");
+        }
+        n.next = n.next.next;
+    }
+
+    private void removeFirst() {
+        if(head == null) {
+            throw new RuntimeException("The list contains no elements.");
+        }
+        head = head.next;
     }
 
     private void addAfter(Node<E> previous, E data){
@@ -99,6 +136,41 @@ public class SinglyLinkedList<E> {
         Node<E> newNode = new Node<>(data, previous.next);
         previous.next = newNode;
         nrOfElements++;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new LLIterator();
+    }
+
+    private class LLIterator implements Iterator<E> {
+        Node<E> current = null;
+
+        public LLIterator() {
+
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (current == null && head != null)
+                return true;
+            if (current != null && current.next != null)
+                return true;
+            return false;
+        }
+
+        @Override
+        public E next() {
+            if (current == null && head != null) {
+                current = head;
+                return current.data;
+            }
+            if (current != null && current.next != null) {
+                current = current.next;
+                return current.data;
+            }
+            throw new RuntimeException("No next.");
+        }
     }
 
     // 2 kinds of nested classes:
