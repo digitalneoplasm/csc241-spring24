@@ -23,6 +23,18 @@ public class ExternalOrderedList<E extends Comparable<E>> {
         linkedList.add(linkedList.size(), element);
     }
 
+    public void addWithIterator(E element){
+        int i = 0;
+        for (E elt : linkedList){
+            if (elt.compareTo(element) > 0){
+                linkedList.add(i, element);
+                return;
+            }
+            i++;
+        }
+        linkedList.add(linkedList.size(), element);
+    }
+
     public String toString() {
         return linkedList.toString();
     }

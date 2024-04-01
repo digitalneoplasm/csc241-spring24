@@ -1,5 +1,6 @@
 package csc241.playground;
 
+import csc241.ds.DoubleLinkedList;
 import csc241.ds.SinglyLinkedList;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Iterator;
 
 public class LinkedListPlay {
     public static void main(String[] args) {
-        SinglyLinkedList<String> al = new SinglyLinkedList<>();
+        DoubleLinkedList<String> al = new DoubleLinkedList<>();
         al.add("amy");
         al.add("bob");
         al.add("chris");

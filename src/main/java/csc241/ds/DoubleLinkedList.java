@@ -1,46 +1,25 @@
 package csc241.ds;
 
-/*
- * Requirements: Build a linked data structure.
- * - Holds strings
- *
- * State:
- * private Node head // The head of the list.
- * private int nrOfElements = 0;
- *
- * Constructors:
- * public SinglyLinkedList() - Make a new singly linked list, with head = null.
- *
- * Methods:
- * - public boolean add(String s) - adds at beginning. Returns true.
- * - public boolean add(int i, String s) - add s at index i, as long as index i
- *   is <= the size of the linked list
- * - public String get(int i) - Return the String at index i.
- * - public boolean contains(String s) - true if s is in the list, else false.
- * - String remove(int i) - remove at index i, returns the removed String
- * - boolean remove(String s) - remove first occurrence of s, true if successful.
- * - String toString()
- * - int size() - number of elements in the list.
- */
-
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ListIterator;
 
-public class SinglyLinkedList<E> implements Iterable<E> {
+public class DoubleLinkedList<E> implements Iterable<E> {
     private Node<E> head;
     private Node<E> tail;
     private int nrOfElements = 0;
 
-    public SinglyLinkedList() {}
+    public DoubleLinkedList() {}
 
     private void addAfter(Node<E> previous, E data){
-//        Node oldNext = previous.next;
-//        Node newNode = new Node(data);
-//        newNode.next = oldNext;
-//        previous.next = newNode;
-        // previous -> newNode -> oldNext
-        Node<E> newNode = new Node<>(data, previous.next);
+        Node<E> newNode = new Node<>(data);
+        newNode.next = previous.next;
+        newNode.previous = previous;
         previous.next = newNode;
+        newNode.next.previous = newNode;
+        if (previous == tail) {
+            tail = newNode;
+        }
         nrOfElements++;
     }
 
@@ -51,7 +30,10 @@ public class SinglyLinkedList<E> implements Iterable<E> {
         }
         // Otherwise...
         else {
-            head = new Node<>(s, head);
+            Node<E> newNode = new Node<>(s);
+            newNode.next = head;
+            head.previous = newNode;
+            head = newNode;
         }
         nrOfElements++;
         return true;
@@ -132,11 +114,34 @@ public class SinglyLinkedList<E> implements Iterable<E> {
         n.next = n.next.next;
     }
 
-    private void removeFirst() {
+    public E removeFirst() {
         if(head == null) {
             throw new RuntimeException("The list contains no elements.");
         }
-        head = head.next;
+        E data = head.data;
+        if (head == tail) {
+            head = tail = null;
+        }
+        else {
+            head = head.next;
+            head.previous = null;
+        }
+        return data;
+    }
+
+    public E removeLast() {
+        if (tail == null) {
+            throw new RuntimeException("The list contains no elements.");
+        }
+        E data = tail.data;
+        if (head == tail) {
+            head = tail = null;
+        }
+        else {
+            tail = tail.previous;
+            tail.next = null;
+        }
+        return data;
     }
 
     @Override
@@ -144,7 +149,7 @@ public class SinglyLinkedList<E> implements Iterable<E> {
         return new LLIterator();
     }
 
-    private class LLIterator implements Iterator<E> {
+    private class LLIterator implements ListIterator<E> {
         Node<E> current = null;
 
         public LLIterator() {
@@ -172,6 +177,41 @@ public class SinglyLinkedList<E> implements Iterable<E> {
             }
             throw new RuntimeException("No next.");
         }
+
+        @Override
+        public boolean hasPrevious() {
+            return false;
+        }
+
+        @Override
+        public E previous() {
+            return null;
+        }
+
+        @Override
+        public int nextIndex() {
+            return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(E e) {
+
+        }
+
+        @Override
+        public void add(E e) {
+
+        }
     }
 
     // 2 kinds of nested classes:
@@ -182,14 +222,10 @@ public class SinglyLinkedList<E> implements Iterable<E> {
     private static class Node<E> {
         private E data;
         private Node<E> next;
+        private Node<E> previous;
 
         public Node(E d){
             this.data = d;
-        }
-
-        public Node(E d, Node<E> n) {
-            this.data = d;
-            this.next = n;
         }
     }
 }
