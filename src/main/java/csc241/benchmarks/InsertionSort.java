@@ -9,18 +9,20 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class InsertionSort {
-    private static final int iterations = 2000;
+import java.util.ArrayList;
 
-    @Fork(value = 1, warmups = 1)
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    public void addAtEnd_noIterator() {
-        ExternalOrderedList<Integer> eol = new ExternalOrderedList<>();
-        for (int i = 0; i < iterations; i++){
-            eol.add(i);
-        }
-    }
+public class InsertionSort {
+    private static final int iterations = 50000;
+
+//    @Fork(value = 1, warmups = 1)
+//    @Benchmark
+//    @BenchmarkMode(Mode.AverageTime)
+//    public void addAtEnd_noIterator() {
+//        ExternalOrderedList<Integer> eol = new ExternalOrderedList<>();
+//        for (int i = 0; i < iterations; i++){
+//            eol.add(i);
+//        }
+//    }
 
     @Fork(value = 1, warmups = 1)
     @Benchmark
@@ -29,6 +31,16 @@ public class InsertionSort {
         ExternalOrderedList<Integer> eol = new ExternalOrderedList<>();
         for (int i = 0; i < iterations; i++){
             eol.addWithIterator(i);
+        }
+    }
+
+    @Fork(value = 1, warmups = 1)
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    public void addAtStart_ArrayList() {
+        ArrayList<Integer> al = new ArrayList<>();
+        for (int i = iterations; i > 0; i--){
+            al.add(0, i);
         }
     }
 

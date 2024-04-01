@@ -113,6 +113,8 @@ public class DoubleLinkedList<E> implements Iterable<E> {
     }
 
     private Node<E> getNodeAtIndex(int i){
+        if (i == 0) return head;
+        if (i == nrOfElements-1) return tail;
         Node<E> temp = head;
         for (int j = 0; j < i; j++){
             temp = temp.next; // Move to the next node.
