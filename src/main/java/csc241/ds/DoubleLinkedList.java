@@ -39,6 +39,23 @@ public class DoubleLinkedList<E> implements Iterable<E> {
         return true;
     }
 
+    public void addFirst(E data) {
+        add(data);
+    }
+
+    public void addLast(E data) {
+        if (head == null) {
+            head = tail = new Node<>(data);
+        }
+        else {
+            Node<E> newNode = new Node<>(data);
+            newNode.previous = tail;
+            tail.next = newNode;
+            tail = newNode;
+        }
+        nrOfElements++;
+    }
+
     public void add(int i, E data) {
         if (i < 0 || i > nrOfElements) {
             throw new IndexOutOfBoundsException();
@@ -126,6 +143,7 @@ public class DoubleLinkedList<E> implements Iterable<E> {
             head = head.next;
             head.previous = null;
         }
+        nrOfElements--;
         return data;
     }
 
@@ -141,6 +159,7 @@ public class DoubleLinkedList<E> implements Iterable<E> {
             tail = tail.previous;
             tail.next = null;
         }
+        nrOfElements--;
         return data;
     }
 
