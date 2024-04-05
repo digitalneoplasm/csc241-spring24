@@ -1,7 +1,10 @@
 package csc241.testers;
 
+import csc241.ds.DoubleLinkedList;
 import csc241.ds.SinglyLinkedList;
 import csc241.exercises.Rectangle;
+
+import java.util.Random;
 
 public class LLTester {
     public static void main(String[] args) {
@@ -29,5 +32,12 @@ public class LLTester {
         ssl.add(ll);
 
         System.out.println(ssl);
+
+        DoubleLinkedList<Integer> dll = new DoubleLinkedList<>();
+        Random rng = new Random();
+        for (int i = 0; i < 10; i++){
+            dll.addInOrder(rng.nextInt(1000));
+            System.out.println(dll);
+        }
     }
 }

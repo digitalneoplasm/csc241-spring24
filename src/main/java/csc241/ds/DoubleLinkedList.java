@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class DoubleLinkedList<E> implements Iterable<E> {
+public class DoubleLinkedList<E extends Comparable<E>> implements Iterable<E> {
     private Node<E> head;
     private Node<E> tail;
     private int nrOfElements = 0;
@@ -69,6 +69,26 @@ public class DoubleLinkedList<E> implements Iterable<E> {
             // Get the node before the one at index i.
             Node<E> before = getNodeAtIndex(i-1);
             addAfter(before, data);
+        }
+    }
+
+    public void addInOrder(E data) {
+        Node<E> temp = head;
+        if (temp == null) {
+            add(data);
+            return;
+        }
+        while (temp != null && temp.data.compareTo(data) < 0) {
+            temp = temp.next;
+        }
+        if (temp == null) {
+            addLast(data);
+        }
+        else if (temp.previous == null) {
+            addFirst(data);
+        }
+        else {
+            addAfter(temp.previous, data);
         }
     }
 
