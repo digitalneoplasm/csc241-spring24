@@ -72,7 +72,7 @@ public class BST <E extends Comparable<E>> {
             ii) else if the current root has one child
                 Set the parent of the current root to reference that child.
             iii) else
-                Find the in-order prececessor, p.
+                Find the in-order predecessor, p.
                 Set current root's value to be p's value.
                 Remove p.
      */
